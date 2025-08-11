@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from transformers import AutoModel
+from transformers import AutoModel, AutoConfig
 
 
 class SiameseBertClassifier(nn.Module):
@@ -8,11 +8,12 @@ class SiameseBertClassifier(nn.Module):
                  dropout_rate=0.2, num_labels=3):
         super(SiameseBertClassifier, self).__init__()
         self.model = AutoModel.from_pretrained(pretrained_model)
+        config = AutoConfig.from_pretrained(pretrained_model)
 
         # we just fine tune last 4 layers of BERT model to avoid overfitting
         for param in self.model.parameters():
             param.requires_grad = False
-        for i in range(12-no_unfreeze_layer, 12):
+        for i in range(config.num_hidden_layers - no_unfreeze_layer, config.num_hidden_layers):
             for param in self.model.encoder.layer[i].parameters():
                 param.requires_grad = True
 
