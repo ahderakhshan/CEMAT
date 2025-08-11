@@ -34,7 +34,7 @@ class ArgumentManager:
                                  help="test batch size for evaluating model at the end of each epoch")
         self.parser.add_argument("--learning_rate", type=float, default=2e-5,
                                  help="learning rate for optimizer")
-        self.parser.add_argument("--dropout_rate", type=float, defalut=0.2,
+        self.parser.add_argument("--dropout_rate", type=float, default=0.2,
                                  help="dropout rate for MLP part of siamese. if don't want to use set it 0")
         self.parser.add_argument("--MLP_no_layers", type=int, default=3,
                                  help="number of layers of the MLP part of siamese")
@@ -86,6 +86,8 @@ if __name__ == "__main__":
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict()
     }, f"{args.output_path}/checkpoint.pt")
+
+    logger.info(f"siamese bert model saved at {args.output_path}/checkpoint.pt")
 
 
 
