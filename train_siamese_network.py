@@ -60,6 +60,8 @@ if __name__ == "__main__":
     data_provider = DataProvider(args.data)
     data_train_premise, data_train_hypothesis, data_train_labels,\
     data_test_premise, data_test_hypothesis, data_test_label = data_provider.provide_data()
+    if args.tokenizer_name_or_path is None:
+        args.tokenizer_name_or_path = args.model_name_or_path
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_name_or_path)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
