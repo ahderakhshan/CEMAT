@@ -32,8 +32,8 @@ class SiameseBertClassifier(nn.Module):
         self.classifier = nn.Sequential(*layers)
 
     def forward(self, input_ids_a, attention_mask_a, input_ids_b, attention_mask_b):
-        u = self.bert(input_ids=input_ids_a, attention_mask=attention_mask_a).last_hidden_state[:, 0, :]
-        v = self.bert(input_ids=input_ids_b, attention_mask=attention_mask_b).last_hidden_state[:, 0, :]
+        u = self.model(input_ids=input_ids_a, attention_mask=attention_mask_a).last_hidden_state[:, 0, :]
+        v = self.model(input_ids=input_ids_b, attention_mask=attention_mask_b).last_hidden_state[:, 0, :]
 
         abs_diff = torch.abs(u - v)
         elem_mult = u * v
