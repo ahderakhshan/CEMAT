@@ -46,7 +46,7 @@ class ArgumentManager:
                                  help="to avoid overfitting we just fine tune last layers. with this argument the"
                                       " number of layers fine tunes determined")
         self.parser.add_argument("--epochs", type=int, default=5, help="number of epochs")
-        self.parser.add_argument("--output_path", type=str, default="./siamese_model/",
+        self.parser.add_argument("--output_path", type=str, default="./siamese_model",
                                  help="output directory to save model")
 
     def parse(self):

@@ -17,12 +17,12 @@ class DataProvider:
         if "SNLI" in self.datasets:
             snli_train_premises, snli_train_hypothesis, snli_train_labels,\
             snli_test_premises, snli_test_hypothesis, snli_test_labels = self._provide_snli()
-            all_train_premises += snli_train_premises
-            all_train_hypothesis += snli_train_hypothesis
-            all_train_labels += snli_train_labels
-            all_test_premises += snli_test_premises
-            all_test_hypothesis += snli_test_hypothesis
-            all_test_lables += snli_test_labels
+            all_train_premises += snli_train_premises[:10]
+            all_train_hypothesis += snli_train_hypothesis[:10]
+            all_train_labels += snli_train_labels[:10]
+            all_test_premises += snli_test_premises[:10]
+            all_test_hypothesis += snli_test_hypothesis[:10]
+            all_test_lables += snli_test_labels[:10]
             logger.info("snli dataset loaded")
         if "MNLI" in self.datasets:
             mnli_train_premises, mnli_train_hypothesis, mnli_train_labels,\
