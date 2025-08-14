@@ -4,4 +4,4 @@ tqdm
 datasets
 nltk
 numpy
-sklearn
+scikit-learn
