@@ -83,7 +83,9 @@ if __name__ == "__main__":
     model = train(model, train_loader, test_loader, optimizer, device, epochs=args.epochs)
 
     if os.path.exists(args.output_path):
+        logger.info(f"directory {args.output_path} does not exist.")
         os.makedirs(args.output_path)
+        logger.info(f"directory {args.output_path} created.")
     torch.save({
         'model_state_dict': model.state_dict(),
         'optimizer_state_dict': optimizer.state_dict()
