@@ -82,7 +82,7 @@ if __name__ == "__main__":
     optimizer = AdamW(filter(lambda p: p.requires_grad, model.parameters()), lr=args.learning_rate)
     model = train(model, train_loader, test_loader, optimizer, device, epochs=args.epochs)
 
-    if os.path.exists(args.output_path):
+    if not os.path.exists(args.output_path):
         logger.info(f"directory {args.output_path} does not exist.")
         os.makedirs(args.output_path)
         logger.info(f"directory {args.output_path} created.")
