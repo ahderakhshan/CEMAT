@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from transformers import AutoModel, AutoConfig
+from tqdm import tqdm
 
 
 class SiameseBertClassifier(nn.Module):
@@ -40,3 +41,19 @@ class SiameseBertClassifier(nn.Module):
         combined = torch.cat([u, v, abs_diff, elem_mult], dim=1)
 
         return self.classifier(combined)
+
+    def embedd_sentences(self, sentences, tokenizer, max_length):
+        all_embeddings = []
+        batch_size = 2
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        for i in tqdm(range(0, len(sentences), batch_size)):
+            selected_sentences = sentences[i:i + batch_size]
+            selected_tokens = tokenizer(selected_sentences, return_tensors="pt", truncation=True, padding=True,
+                                        max_length=max_length).to(device)
+            with torch.no_grad():
+                outputs = self.model(**selected_tokens)
+                embeddings = outputs.last_hidden_state[:, 0, :]
+                all_embeddings.append(embeddings.cpu())
+        all_embeddings = torch.cat(all_embeddings, dim=0)
+        all_embeddings = all_embeddings.to(device)
+        return all_embeddings
