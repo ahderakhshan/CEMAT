@@ -1,3 +1,5 @@
+import os.path
+
 import torch
 import random
 import torch.nn.functional as F
@@ -39,6 +41,14 @@ class ContradictionExtractor:
 
     def save_contradictory_pairs(self):
         pairs = self._sort_pairs()
+
+        output_directory_parts = self.output_path.split("/")[:-1]
+        output_directory = ""
+        for i in output_directory_parts:
+            output_directory += f"{i}/"
+        if not os.path.exists(output_directory):
+            os.makedirs(output_directory)
+
         if self.number_of_extractions is None:
             self.number_of_extractions = len(pairs)
         else:

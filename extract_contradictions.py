@@ -20,9 +20,9 @@ class ArgumentManager:
         self._add_arguments()
 
     def _add_arguments(self):
-        self.parser.add_argument("--data_path", type=str, default="./data/texts.json",
+        self.parser.add_argument("--data_path", type=str, default="./pubmed_abstracts/Coma.json",
                                  help="path to sentences for extracting contradictory pairs."
-                                      " change utils.read_input_data function based on your data type")
+                                      " change DataReader read_documents function based on your data type")
         self.parser.add_argument("--checkpoint_path", type=str, default="./checkpoint/checkpoint.pt",
                                  help="siamese language model that fine tuned to generate NLI specific embeddings")
         self.parser.add_argument("--tokenizer_name_or_path", type=str, default=None,
@@ -35,7 +35,7 @@ class ArgumentManager:
                                  help="number of neurons for each layer of MLP. it must be a list with length equal to"
                                       " --MLP_no_layers - 1. last layer number of neurons is 3 because the problem is 3"
                                       " class classification")
-        self.parser.add_argument("--output_file_path", type=str, default="./result.csv",
+        self.parser.add_argument("--output_file_path", type=str, default="./results/Coma.csv",
                                  help="output path to csv file  to save results")
         self.parser.add_argument("--representative_point_type", type=str, default="Mean",
                                  help="can be one of Mean, AroundMean, Random, Medoids")
